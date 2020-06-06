@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script type="text/javascript" src="https://sdk.userbase.com/1/userbase.js"></script>
 
   <link rel="stylesheet" href="https://unpkg.com/@stackoverflow/stacks/dist/css/stacks.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.ico">
@@ -102,41 +101,10 @@ a:hover {
 
 
 
-  <!-- Loading View -->
-  <div id="loading-view">Loading...</div>
-
-  <!-- Auth View -->
-  <div id="auth-view">
-    <h1>Login</h1>
-    <form id="login-form">
-      <input id="login-username" type="text" required placeholder="Username">
-      <input id="login-password" type="password" required placeholder="Password">
-      <input type="submit" value="Sign in">
-    </form>
-    <div id="login-error"></div>
-
-    <h1>Create an account</h1>
-    <form id="signup-form">
-      <input id="signup-username" type="text" required placeholder="Username">
-      <input id="signup-password" type="password" required placeholder="Password">
-      <input type="submit" value="Create an account">
-    </form>
-    <div id="signup-error"></div>
-  </div>
 
 
 
-
-
-  <!-- To-dos View -->
-  <!-- To-dos View -->
-  <div id="todo-view">
-    <div id="username"></div>
-    <input type="button" value="Logout" id="logout-button">
-    <div id="logout-error"></div>
-  
-
-    
+ 
 
 
 
@@ -300,77 +268,7 @@ a:hover {
 
   
   
-    <div id="todos"></div>
-  </div>
 
-
-
-
-<!-- application code -->
-<script type="text/javascript">
-  userbase.init({ appId: '4cda6744-45da-4fe8-8a56-0f8792e5cb58' })
-    .then((session) => session.user ? showTodos(session.user) : showAuth())
-    .catch(() => showAuth())
-    .finally(() => document.getElementById('loading-view').style.display = 'none')
-
-  function handleLogin(e) {
-    e.preventDefault()
-
-    const username = document.getElementById('login-username').value
-    const password = document.getElementById('login-password').value
-
-    userbase.signIn({ username, password, rememberMe: 'local' })
-      .then((user) => showTodos(user))
-      .catch((e) => document.getElementById('login-error').innerHTML = e)
-  }
-
-  function handleSignUp(e) {
-    e.preventDefault()
-
-    const username = document.getElementById('signup-username').value
-    const password = document.getElementById('signup-password').value
-
-    userbase.signUp({ username, password, rememberMe: 'local' })
-      .then((user) => showTodos(user))
-      .catch((e) => document.getElementById('signup-error').innerHTML = e)
-  }
-
-  function handleLogout() {
-    userbase.signOut()
-      .then(() => showAuth())
-      .catch((e) => document.getElementById('logout-error').innerText = e)
-  }
-
-  function showTodos(user) {
-    document.getElementById('auth-view').style.display = 'none'
-    document.getElementById('todo-view').style.display = 'block'
-
-  }
-
-  function showAuth() {
-    document.getElementById('todo-view').style.display = 'none'
-    document.getElementById('auth-view').style.display = 'block'
-    document.getElementById('login-username').value = ''
-    document.getElementById('login-password').value = ''
-    document.getElementById('login-error').innerText = ''
-    document.getElementById('signup-username').value = ''
-    document.getElementById('signup-password').value = ''
-    document.getElementById('signup-error').innerText = ''
-  }
-
- 
-
- 
-
-  document.getElementById('login-form').addEventListener('submit', handleLogin)
-  document.getElementById('signup-form').addEventListener('submit', handleSignUp)
-  document.getElementById('add-todo-form').addEventListener('submit', addTodoHandler)
-  document.getElementById('logout-button').addEventListener('click', handleLogout)
-  
-  document.getElementById('todo-view').style.display = 'none'
-  document.getElementById('auth-view').style.display = 'none'
-
-</script>
 
 
 
